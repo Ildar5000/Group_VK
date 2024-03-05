@@ -36,7 +36,8 @@ function MainUpdate()
   delete_old_obj(btngr);
   delete_old_obj(ol_btn);
   delete_old_obj(btn_res);
-
+ 
+  
   let json =  localStorage.getItem("category_vk_group");
   if (typeof json === '')
   {
@@ -226,6 +227,9 @@ function create_Prompt(add_group) {
   close_btn.innerHTML = "X";
   close_btn.style.cssText =
     "position: absolute;top: 0;right: 10px;font-size: 42px;color: #333;cursor: pointer;	&:hover {color: #666;}";
+    close_btn.addEventListener("click", (e) => {
+      modal_dv.style.cssText="display: none;";
+    });
 
   let content_category = document.createElement("div");
   content_category.id = "content_category";
