@@ -196,7 +196,7 @@ function createlist(category) {
   {
       arr.forEach((value) => {
         let li = document.createElement("li");
-        li.innerHTML = "<a href='" + value + "'>" + value + "</a>";
+        li.innerHTML = "<a href='" + value + "'>" + value.replace('https://vk.com/',"") + "</a>";
         li.classList.add("LeftMenuItem-module__item--XMcN9");
         ul.appendChild(li);
    });
