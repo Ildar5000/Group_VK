@@ -11,7 +11,7 @@
     "128": "images/icon-128.png"
   },
   "permissions": [
-    "storage","scripting","activeTab"
+    "storage","scripting","activeTab","tabs","downloads"
   ],
   "host_permissions": ["https://vk.com/*"] ,
   "action": {
@@ -27,7 +27,8 @@
         "https://vk.com/*"
       ]
     }
-  ]
-
-
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
 }

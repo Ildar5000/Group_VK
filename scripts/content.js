@@ -1,6 +1,7 @@
 
 let maps1 = new Map();
 
+//ожидаем загрузки страницы
 const observer = new MutationObserver(function () {
   if (document.getElementsByClassName("side_bar_inner")[0]) {
     switch (document.readyState) {
@@ -28,10 +29,10 @@ function MainUpdate()
   
   const article = document.querySelector("ol");
   const ol_btn = document.querySelector("#select_list_group");
-  const btn_res=document.querySelector(".btn_group");
+  const btn_res=document.querySelector("#btn_group");
 
 
-
+  // удаление предыдущих 
   delete_old_obj(text_input_group);
   delete_old_obj(btngr);
   delete_old_obj(ol_btn);
@@ -315,3 +316,29 @@ function add_group_from_popur(obj) {
   //var str = JSON.stringify(Array.from(maps1.entries()));
   //sessionStorage.setItem("category_vk_group", str);
 }
+
+//обработка попура
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse)
+  {
+      
+    if (request.name=="export")
+    {
+      console.log('export');
+      let json =  localStorage.getItem("category_vk_group");
+      console.log(JSON.stringify(json));
+      console.log(typeof(json));
+      sendResponse({message: json});
+    }
+
+    if (request.name=="import")
+    {
+      console.log('import');
+      console.log(request.value);
+      localStorage.setItem("category_vk_group", request.value);
+      sendResponse("ok");
+    }
+
+      return true;
+  }
+);
