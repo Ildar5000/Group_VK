@@ -24,20 +24,22 @@ observer.observe(target, config);
 function MainUpdate()
 {
   const maps1=new Map();
+  
+  //блок добавления групп
   const text_input_group=document.querySelector("#text_input_group"); 
   const btngr=document.querySelector("#btn"); 
   
   const article = document.querySelector("ol");
   const ol_btn = document.querySelector("#select_list_group");
   const btn_res=document.querySelector("#btn_group");
-
+  const list_group_cont=document.querySelector("#list_group_cont");
 
   // удаление предыдущих 
   delete_old_obj(text_input_group);
   delete_old_obj(btngr);
   delete_old_obj(ol_btn);
   delete_old_obj(btn_res);
- 
+  delete_old_obj(list_group_cont);
   
   let json =  localStorage.getItem("category_vk_group");
   if (typeof json === '')
@@ -45,6 +47,7 @@ function MainUpdate()
      maps1 = new Map(JSON.parse(json));
   }
 
+  // под профилем
   if (top_profile_menu)
   {
     let top_profile_mrow =top_profile_menu.querySelector("#top_settings_link");
@@ -70,8 +73,15 @@ function MainUpdate()
     input_element.insertAdjacentElement("afterend", btn_element);
   }
   
+  // меню сбоку
   if (article)
   {
+      const heading = article.querySelector("li");
+      let list_group_cont = document.createElement("div");
+      list_group_cont.id="list_group_cont";
+      list_group_cont.classList.add("LeftMenuItem-module__container--vaT3i");
+      heading.insertAdjacentElement("afterend", list_group_cont);
+
       let badge = document.createElement("select");
       badge.id = "select_list_group";
       badge.classList.add("LeftMenuItem-module__container--vaT3i");
@@ -81,7 +91,7 @@ function MainUpdate()
         getSelectValue(event);
       });
       createOption(badge);
-      const heading = article.querySelector("li");
+      
       heading.insertAdjacentElement("afterend", badge);
   }
 
@@ -159,22 +169,10 @@ function createOption(badge) {
     li.classList.add("LeftMenuItem-module__item--XMcN9");
     li.textContent = keys;
     li.value=keys;
-    createlist(keys);
     badge.appendChild(li);
   });
-
-
-  /*
-    category.forEach((value, key) => {
-      let li = document.createElement("option");
-      li.classList.add("LeftMenuItem-module__item--XMcN9");
-      li.textContent = category[i];
-      li.value = category[i];
-      badge.appendChild(li);
-    
-    console.log(value, key);
-  });
-  */
+  // выбираем первого в списке
+  createlist(category.keys().next().value);
 }
 
 
@@ -189,7 +187,7 @@ function createlist(category) {
   let arr=cat.get(category);
   //console.log(arr);
   let heading = document.querySelector("#l_pr");
-
+  let list_group_cont = document.getElementById("list_group_cont");
 
   let ul = document.createElement("ul");
   ul.id = "list_group";
@@ -204,11 +202,11 @@ function createlist(category) {
   }
 
   //const heading = article.querySelector("li");
-  heading.insertAdjacentElement("afterend", ul);
-
+  //heading.insertAdjacentElement("afterend", ul);
+  list_group_cont.appendChild(ul)
 }
 
-
+// создание попура в шапке 
 function create_Prompt(add_group) {
   let modal_dv = document.createElement("div");
   modal_dv, (id = "bg-modal");
@@ -317,7 +315,7 @@ function add_group_from_popur(obj) {
   //sessionStorage.setItem("category_vk_group", str);
 }
 
-//обработка попура
+//обработка попура из строки состояния
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse)
   {
