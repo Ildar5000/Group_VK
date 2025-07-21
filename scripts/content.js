@@ -46,32 +46,6 @@ function MainUpdate()
   {
      maps1 = new Map(JSON.parse(json));
   }
-
-  // под профилем
-  if (top_profile_menu)
-  {
-    let top_profile_mrow =top_profile_menu.querySelector("#top_settings_link");
-    let input_element = document.createElement("input");
-    input_element.id='text_input_group';
-    input_element.type = "text";
-    input_element.className = "top_profile_menu_new shown"; 
-    
-    top_profile_mrow.insertAdjacentElement("afterend", input_element); 
-    input_element.addEventListener("input", function handleChange(event) {
-      console.log(event.target.value);
-    });
-
-    var btn_element = document.createElement("button");
-    btn_element.id="btn";
-    btn_element.innerHTML="Добавить категорию";
-    btn_element.className = "top_profile_menu_new shown"; 
-    btn_element.addEventListener("click", function handleChange(event) {
-      const tp=document.querySelector("#text_input_group"); 
-      setLocalsessionStorage(maps1,tp.value);
-    });
-    
-    input_element.insertAdjacentElement("afterend", btn_element);
-  }
   
   // меню сбоку
   if (article)
