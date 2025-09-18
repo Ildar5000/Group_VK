@@ -1,4 +1,3 @@
-
 let maps1 = new Map();
 
 //ожидаем загрузки страницы
@@ -99,41 +98,6 @@ function getSelectValue(e) {
   }
 }
 
-
-
-function getLocalsessionStorage()
-{
-  let json = localStorage.getItem("category_vk_group");
-  if (typeof json !== '')
-  {
-     maps1 = new Map(JSON.parse(json));
-  }
-  return maps1;
-}
-
-
-function setLocalsessionStorage(maps1,value)
-{
-  console.log(maps1);
-  console.log(value);
-
-  maps1=getLocalsessionStorage();
-  if (maps1)
-  {
-     maps1.set(value);
-     let str = JSON.stringify(Array.from(maps1.entries()));
-     localStorage.setItem("category_vk_group", str);
-  }
-}
-
-function delete_old_obj(obj)
-{
-  if (obj) 
-  {
-    obj.remove();
-  }
-}
-
 // функция по создаюнию выборки
 function createOption(badge) {
   let category=getLocalsessionStorage();
@@ -183,14 +147,11 @@ function createlist(category) {
 // создание попура в шапке 
 function create_Prompt(add_group) {
   let modal_dv = document.createElement("div");
+  modal_dv.id="main_popur"
   modal_dv, (id = "bg-modal");
-  modal_dv.style.cssText =
-    "background-color: rgba(0, 0, 0, 0.8);width: 100%;height: 100%;position: absolute;top: 0;display: none;justify-content: center;align-items: center;";
 
   let modal_cont = document.createElement("div");
   modal_cont.id = "modal_cont";
-  modal_cont.style.cssText =
-    "height: 300px;width: 500px;background-color: white;text-align: center;padding: 20px;position: relative;";
   modal_dv.appendChild(modal_cont);
 
   modal_dv.style.display = "flex";
@@ -198,20 +159,24 @@ function create_Prompt(add_group) {
   let close_btn = document.createElement("div");
   close_btn.id = "Close_btn";
   close_btn.innerHTML = "X";
-  close_btn.style.cssText =
-    "position: absolute;top: 0;right: 10px;font-size: 42px;color: #333;cursor: pointer;	&:hover {color: #666;}";
-    close_btn.addEventListener("click", (e) => {
-      modal_dv.style.cssText="display: none;";
+  close_btn.addEventListener("click", (e) => {
+    modal_dv.style.cssText="display: none;";
     });
 
+  // добавление верхнего блока редактроа групп
   let content_category = document.createElement("div");
   content_category.id = "content_category";
 
   let content_category_caption = document.createElement("div");
   content_category_caption.id = "content_category_caption";
-  content_category_caption.innerText = "group";
+  content_category_caption.innerText = "Добавление группы";
 
   content_category.appendChild(content_category_caption);
+
+  // добавление верхнего блока редактроа группу
+  let content_category_group = document.createElement("div");
+  content_category_group.id = "content_category_group";
+  content_category_group.innerText = "Добавление в группу";
 
   modal_cont.appendChild(close_btn);
   let category=getLocalsessionStorage();
@@ -250,7 +215,13 @@ function create_Prompt(add_group) {
   modal_cont.insertAdjacentElement("afterend", content_category);
   modal_cont.appendChild(content_category);
 
+  modal_cont.insertAdjacentElement("afterend", p);
+  modal_cont.appendChild(p);
+  modal_cont.insertAdjacentElement("afterend", content_category_group);
+  modal_cont.appendChild(content_category_group);
+
   add_group.insertAdjacentElement("afterend", modal_dv);
+
 }
 
 /// добавляет группы из формы

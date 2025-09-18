@@ -27,3 +27,37 @@
   span {
     cursor: pointer;
   }
+
+  #main_popur
+  {
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    display: none;
+    justify-content: center;
+    align-items: center"
+  }
+
+  
+ #modal_cont
+ {
+  height: 300px;
+  width: 500px;
+  background-color: white;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+ }
+ 
+ #Close_btn
+ {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  font-size: 42px;
+  color: #333;
+  cursor: pointer;	
+  &:hover {color: #666;}
+ }
