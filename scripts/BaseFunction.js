@@ -30,3 +30,40 @@ function getLocalsessionStorage()
   }
   return maps1;
 }
+
+function CreateDiv(content_txt,_id)
+{
+  let newDiv = document.createElement("div");
+  newDiv.id =_id
+  newDiv.innerText = content_txt;
+  return newDiv;
+}
+
+function CreateP()
+{
+  let newDiv = document.createElement("p");
+  return newDiv;
+}
+
+function CreateButton(content,vk_style)
+{
+  let newbtn = document.createElement("Button");
+  newbtn.innerHTML = content;
+  if (vk_style)
+  {
+      newbtn.classList.add("FlatButton");
+      newbtn.classList.add("FlatButton--primary");
+      newbtn.classList.add("FlatButton--size-m");
+      newbtn.id="btn_group";
+      newbtn.classList.add("redesigned-group-action");
+  }
+  return newbtn;
+}
+
+function CreateInput(value,keys)
+{
+  let Newinput = document.createElement("INPUT");
+  Newinput.setAttribute("type", "checkbox");
+  Newinput.value = keys;
+  return Newinput;
+}

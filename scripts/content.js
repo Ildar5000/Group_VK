@@ -146,47 +146,48 @@ function createlist(category) {
 
 // создание попура в шапке 
 function create_Prompt(add_group) {
+  //главный попур
   let modal_dv = document.createElement("div");
   modal_dv.id="main_popur"
   modal_dv, (id = "bg-modal");
-
+  //внутренний блок
   let modal_cont = document.createElement("div");
   modal_cont.id = "modal_cont";
-  modal_dv.appendChild(modal_cont);
 
+  //добавление внутренннего блока
+  modal_dv.appendChild(modal_cont);
   modal_dv.style.display = "flex";
 
+  // кнопка отключения
   let close_btn = document.createElement("div");
   close_btn.id = "Close_btn";
   close_btn.innerHTML = "X";
   close_btn.addEventListener("click", (e) => {
     modal_dv.style.cssText="display: none;";
     });
+  modal_cont.appendChild(close_btn);
 
   // добавление верхнего блока редактроа групп
   let content_category = document.createElement("div");
   content_category.id = "content_category";
-
-  let content_category_caption = document.createElement("div");
-  content_category_caption.id = "content_category_caption";
-  content_category_caption.innerText = "Добавление группы";
-
+  
+  //заголовок
+  let content_category_caption = CreateDiv("Добавление группы","content_category_caption");
+  content_category.insertAdjacentElement("afterend",content_category_caption);
   content_category.appendChild(content_category_caption);
+  
+  // добавление нижнего блока редактора добавления в группы
+  let content_category_group = CreateDiv("","content_category_group");
+  
+  let _label=CreateDiv("Добавление в группу","content_category_group1")
+  content_category_group.appendChild(_label);
 
-  // добавление верхнего блока редактроа группу
-  let content_category_group = document.createElement("div");
-  content_category_group.id = "content_category_group";
-  content_category_group.innerText = "Добавление в группу";
-
-  modal_cont.appendChild(close_btn);
   let category=getLocalsessionStorage();
   
   category.forEach((values, keys)=>
   {
     console.log(keys);
-    let x = document.createElement("INPUT");
-    x.setAttribute("type", "checkbox");
-    x.value = keys;
+    let x = CreateInput(values,keys);
     x.addEventListener("change", function () {
       if (this.checked) {
         console.log("Checkbox is checked..");
@@ -196,27 +197,21 @@ function create_Prompt(add_group) {
       }
     });
 
-    content_category_caption.after(x);
+    content_category_group.appendChild(x);
     let y = document.createElement("label");
     y.innerText = keys;
-    content_category_caption.after(y);
+    content_category_group.appendChild(y);
   });
-  
-  const p = document.createElement("p");
-  content_category_caption.after(p);
+
 
   /// Добавляет кнопку для добавления в группу
-  let btn_Add_from_Group = document.createElement("Button");
-  btn_Add_from_Group.innerHTML = "Add group";
+  //let btn_Add_from_Group = CreateButton("Add group",true);
+  //content_category_group.appendChild(btn_Add_from_Group);
 
-  content_category_caption.after(btn_Add_from_Group);
-
-  /// Добавляет в объект
-  modal_cont.insertAdjacentElement("afterend", content_category);
+  /// Добавляет в основной объект
   modal_cont.appendChild(content_category);
+  modal_cont.appendChild(CreateP());
 
-  modal_cont.insertAdjacentElement("afterend", p);
-  modal_cont.appendChild(p);
   modal_cont.insertAdjacentElement("afterend", content_category_group);
   modal_cont.appendChild(content_category_group);
 
