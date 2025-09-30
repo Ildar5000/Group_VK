@@ -176,6 +176,17 @@ function create_Prompt(add_group) {
   content_category.insertAdjacentElement("afterend",content_category_caption);
   content_category.appendChild(content_category_caption);
   
+  // текстбокс для добавление в группу
+  let input_group = CreateInputtxt("text");
+  content_category.appendChild(input_group);
+
+  // кнопка добавления группы
+  let input_group_btn = CreateButton("Добавить группу",true);
+  input_group_btn.addEventListener("click", (e) => {
+    AddNewGroupCommonCategory(input_group.value)
+    });
+  content_category.appendChild(input_group_btn);
+
   // добавление нижнего блока редактора добавления в группы
   let content_category_group = CreateDiv("","content_category_group");
   
@@ -187,7 +198,7 @@ function create_Prompt(add_group) {
   category.forEach((values, keys)=>
   {
     console.log(keys);
-    let x = CreateInput(values,keys);
+    let x = CreateInput(values,keys,"checkbox");
     x.addEventListener("change", function () {
       if (this.checked) {
         console.log("Checkbox is checked..");
